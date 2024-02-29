@@ -10,7 +10,7 @@ class GildedRose
   def tick
 
     if name == "Normal Item"
-      return
+      return normal_tick
 
     end
     if @name != "Aged Brie" and @name != "Backstage passes to a TAFKAL80ETC concert"
@@ -35,6 +35,10 @@ class GildedRose
           end
         end
       end
+    end
+
+    def normal_tick
+
     end
 
 
