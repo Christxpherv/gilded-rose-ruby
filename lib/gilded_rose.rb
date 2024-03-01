@@ -1,4 +1,5 @@
 class GildedRose
+  # changed attr_reader to include name and item
   attr_reader :name, :item
 
   def initialize(name:, days_remaining:, quality:)
@@ -6,7 +7,7 @@ class GildedRose
     @days_remaining = days_remaining
     @quality = quality
   end
-
+  # create class for Normal
   class Normal
     attr_reader :quality, :days_remaining
 
@@ -22,7 +23,7 @@ class GildedRose
       @quality -= 1 if @days_remaining <= 0
     end
   end
-
+  # create class for Brie
   class Brie
     attr_reader :quality, :days_remaining
 
@@ -38,7 +39,7 @@ class GildedRose
       @quality += 1 if @days_remaining <= 0 && @quality < 50
     end
   end
-
+  # create class for Sulfuras
   class Sulfuras
     attr_reader :quality, :days_remaining
 
@@ -50,7 +51,7 @@ class GildedRose
 
     end
   end
-
+  # created class for backstage
   class Backstage
     attr_reader :quality, :days_remaining
 
@@ -70,48 +71,29 @@ class GildedRose
   end
 
   def tick
-    # create case statement to call the correct method
+    # removed functions and added cases that make instance of the class
     case name
     when "Normal Item"
-      return normal_tick
+      @item = Normal.new(@quality, @days_remaining)
+      item.tick
     when "Aged Brie"
-      return brie_tick
+      @item = Brie.new(@quality, @days_remaining)
+      item.tick
     when "Sulfuras, Hand of Ragnaros"
-      return sulfuras_tick
+      @item = Sulfuras.new(@quality, @days_remaining)
+      item.tick
     when "Backstage passes to a TAFKAL80ETC concert"
-      return backstage_tick
+      @item = Backstage.new(@quality, @days_remaining)
+      item.tick
     end
   end
 
-  # refactor the normal_tick method more
-  def normal_tick
-    @item = Normal.new(@quality, @days_remaining)
-    item.tick
-  end
-
-  # added brie_tick method
-  def brie_tick
-    @item = Brie.new(@quality, @days_remaining)
-    item.tick
-  end
-
-  # make sulfuras_tick method
-  def sulfuras_tick
-    @item = Sulfuras.new(@quality, @days_remaining)
-    item.tick
-  end
-
-  # make backstage_tick method
-  def backstage_tick
-    @item = Backstage.new(@quality, @days_remaining)
-    item.tick
-  end
-
+  # create quality getter
   def quality
     return item.quality if item
     @quality
   end
-
+  # create days_remaining getter
   def days_remaining
     return item.days_remaining if item
     @days_remaining
