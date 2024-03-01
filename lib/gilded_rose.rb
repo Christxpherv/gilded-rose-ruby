@@ -3,9 +3,7 @@ class GildedRose
   attr_reader :name, :item
 
   def initialize(name:, days_remaining:, quality:)
-    @name = name
-    @days_remaining = days_remaining
-    @quality = quality
+    @item = klass_for(name).new(quality, days_remaining)
   end
   # create class for Normal
   class Normal
@@ -70,32 +68,31 @@ class GildedRose
     end
   end
 
-  def tick
+  def klass_for(name)
     # removed functions and added cases that make instance of the class
     case name
     when "Normal Item"
-      @item = Normal.new(@quality, @days_remaining)
-      item.tick
+      Normal
     when "Aged Brie"
-      @item = Brie.new(@quality, @days_remaining)
-      item.tick
+      Brie
     when "Sulfuras, Hand of Ragnaros"
-      @item = Sulfuras.new(@quality, @days_remaining)
-      item.tick
+      Sulfuras
     when "Backstage passes to a TAFKAL80ETC concert"
-      @item = Backstage.new(@quality, @days_remaining)
-      item.tick
+      Backstage
     end
   end
 
-  # create quality getter
-  def quality
-    return item.quality if item
-    @quality
+  # make a method that calls the tick method of the item
+  def tick
+    item.tick
   end
-  # create days_remaining getter
+
+  # remove @quality and 'if item' since we will always create an item now
+  def quality
+    return item.quality
+  end
+  # remove @days_remaining and 'if item' since we will always create an item now
   def days_remaining
-    return item.days_remaining if item
-    @days_remaining
+    return item.days_remaining
   end
 end
